@@ -1,0 +1,267 @@
+mysql> CREATE DATABASE IF NOT EXISTS company;
+Query OK, 1 row affected (0.00 sec)
+mysql> USE company;
+Database changed
+mysql>
+mysql> CREATE TABLE employees (-> emp_idINTAUTO_INCREMENTPRIMARYKEY,-> first_name VARCHAR(50),-> last_name VARCHAR(50),-> salary DECIMAL(10,2),-> dept_id INT,-> hire_date DATE-> );
+Query OK, 0 rows affected (0.01 sec)
+mysql>
+mysql> CREATE TABLE departments (-> dept_id INT PRIMARY KEY,-> dept_nameVARCHAR(50)
+-> );
+Query OK, 0 rows affected (0.01 sec)
+mysql> INSERT INTO departments VALUES-> (10, 'IT'),-> (20, 'HR'),-> (30, 'Finance');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3 Duplicates: 0 Warnings: 0
+mysql>
+mysql> INSERT INTO employees (first_name, last_name, salary, dept_id, hire_date) VALUES-> ('John', 'Doe', 5000, 10, '2021-01-15'),-> ('Alice', 'Smith', 6000, 10, '2020-03-10'),-> ('Bob', 'Brown', 4500, 20, '2022-06-01'),-> ('Diana', 'Clark', 7000, 30, '2019-09-20'),-> ('Evan', 'Jones', 8000, 20, '2018-11-05');
+Query OK, 5 rows affected (0.00 sec)
+Records: 5 Duplicates: 0 Warnings: 0
+mysql>-- Salary greater than 6000
+mysql> SELECT * FROM employees WHERE salary > 6000;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+2 rows in set (0.00 sec)
+mysql>-- Salary between 5000 and 7000
+mysql> SELECT * FROM employees WHERE salary BETWEEN 5000 AND 7000;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 1|John |Doe |5000.00| 10|2021-01-15|
+| 2|Alice |Smith |6000.00| 10|2020-03-10|
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
++--------+------------+-----------+---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql>
+mysql>-- Department NOT equal to 10
+mysql> SELECT * FROM employees WHERE dept_id <> 10;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 3|Bob |Brown |4500.00| 20|2022-06-01|
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql>
+mysql>-- Employees in IT or HR
+mysql> SELECT * FROM employees WHERE dept_id IN (10, 20);
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 1|John |Doe |5000.00| 10|2021-01-15|
+| 2|Alice |Smith |6000.00| 10|2020-03-10|
+| 3|Bob |Brown |4500.00| 20|2022-06-01|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+4 rows in set (0.00 sec)
+mysql>-- Salary greater than 6000
+mysql> SELECT * FROM employees WHERE salary > 6000;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+2 rows in set (0.00 sec)
+mysql>
+mysql>-- Salary between 5000 and 7000
+mysql> SELECT * FROM employees WHERE salary BETWEEN 5000 AND 7000;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 1|John |Doe |5000.00| 10|2021-01-15|
+| 2|Alice |Smith |6000.00| 10|2020-03-10|
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
++--------+------------+-----------+---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql>
+mysql>-- Department NOT equal to 10
+mysql> SELECT * FROM employees WHERE dept_id <> 10;
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 3|Bob |Brown |4500.00| 20|2022-06-01|
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql>
+mysql>-- Employees in IT or HR
+mysql> SELECT * FROM employees WHERE dept_id IN (10, 20);
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 1|John |Doe |5000.00| 10|2021-01-15|
+| 2|Alice |Smith |6000.00| 10|2020-03-10|
+| 3|Bob |Brown |4500.00| 20|2022-06-01|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+4 rows in set (0.00 sec)
+mysql>-- Arithmetic operation
+mysql> SELECT emp_id, salary, salary + 1000 AS increased_salary-> FROMemployees;
++--------+---------+------------------+
+| emp_id | salary | increased_salary |
++--------+---------+------------------+
+| 1|5000.00|
+| 2|6000.00|
+| 3|4500.00|
+| 4|7000.00|
+| 5|8000.00|
+6000.00 |
+7000.00 |
+5500.00 |
+8000.00 |
+9000.00 |
++--------+---------+------------------+
+5 rows in set (0.00 sec)
+mysql>-- Built-in string functions
+mysql> SELECT UPPER(first_name), LOWER(last_name), LENGTH(first_name)-> FROMemployees;
++-------------------+------------------+--------------------+
+| UPPER(first_name) | LOWER(last_name) | LENGTH(first_name) |
++-------------------+------------------+--------------------+
+| JOHN
+| ALICE
+| BOB
+| DIANA
+| EVAN
+| doe
+| smith
+| brown
+| clark
+| jones
+|
+|
+|
+|
+|
+4 |
+5 |
+3 |
+5 |
+4 |
++-------------------+------------------+--------------------+
+5 rows in set (0.00 sec)
+mysql>-- Numeric function
+mysql> SELECT emp_id, salary, ROUND(salary / 3, 2) AS monthly_avg-> FROMemployees;
++--------+---------+-------------+
+| emp_id | salary | monthly_avg |
++--------+---------+-------------+
+| 1|5000.00| 1666.67|
+| 2|6000.00| 2000.00|
+| 3|4500.00| 1500.00|
+| 4|7000.00| 2333.33|
+| 5|8000.00| 2666.67|
++--------+---------+-------------+
+5 rows in set (0.00 sec)
+mysql>-- Total salary
+mysql> SELECT SUM(salary) AS total_salary FROM employees;
++--------------+
+| total_salary |
++--------------+
+| 30500.00|
++--------------+
+1 rowin set (0.00 sec)
+mysql>-- Average salary by department
+mysql> SELECT dept_id, AVG(salary) AS avg_salary-> FROMemployees-> GROUPBYdept_id;
++---------+-------------+
+| dept_id | avg_salary |
++---------+-------------+
+| 10|5500.000000|
+| 20|6250.000000|
+| 30|7000.000000|
++---------+-------------+
+3 rows in set (0.00 sec)
+mysql>-- Count employees per department
+mysql> SELECT dept_id, COUNT(*) AS emp_count-> FROMemployees-> GROUPBYdept_id;
++---------+-----------+
+| dept_id | emp_count |
++---------+-----------+
+| 10| 2|
+| 20| 2|
+| 30| 1|
++---------+-----------+
+3 rows in set (0.00 sec)
+mysql>
+mysql>-- Highest salary
+mysql> SELECT MAX(salary) AS highest_salary FROM employees;
++----------------+
+| highest_salary |
++----------------+
+|
+8000.00 |
++----------------+
+1 rowin set (0.00 sec)
+mysql>-- Employees earning more than average salary
+mysql> SELECT * FROM employees-> WHEREsalary > (SELECT AVG(salary) FROM employees);
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+2 rows in set (0.00 sec)
+mysql>-- Highest paid employee in each department
+mysql> SELECT *-> FROMemployees e-> WHEREsalary = (-> SELECTMAX(salary)-> FROMemployees-> WHEREdept_id=e.dept_id-> );
++--------+------------+-----------+---------+---------+------------+
+| emp_id | first_name | last_name | salary | dept_id | hire_date |
++--------+------------+-----------+---------+---------+------------+
+| 2|Alice |Smith |6000.00| 10|2020-03-10|
+| 4|Diana |Clark |7000.00| 30|2019-09-20|
+| 5|Evan |Jones |8000.00| 20|2018-11-05|
++--------+------------+-----------+---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql> SELECT e.first_name, e.salary, d.dept_name-> FROMemployees e-> JOIN departments d-> ONe.dept_id = d.dept_id;
++------------+---------+-----------+
+| first_name | salary | dept_name |
++------------+---------+-----------+
+| John
+| Alice
+| Bob
+| 5000.00 | IT
+| 6000.00 | IT
+| 4500.00 | HR
+|
+|
+|
+| Diana |7000.00|Finance |
+| Evan
+| 8000.00 | HR
++------------+---------+-----------+
+5 rows in set (0.00 sec)
+mysql>-- UNION
+|
+mysql> SELECT first_name FROM employees WHERE dept_id = 10-> UNION-> SELECT first_name FROM employees WHERE dept_id = 20;
++------------+
+| first_name |
++------------+
+| John
+| Alice
+| Bob
+| Evan
+|
+|
+|
+|
++------------+
+4 rows in set (0.00 sec)
+mysql>-- UNION ALL
+mysql> SELECT first_name FROM employees WHERE dept_id = 10-> UNION ALL-> SELECT first_name FROM employees WHERE dept_id = 20;
++------------+
+| first_name |
++------------+
+| John
+| Alice
+| Bob
+| Evan
+|
+|
+|
+|
++------------+
+4 rows in set (0.00 sec)
+mysql> SELECT first_name-> FROMemployees-> WHEREdept_id = 10-> ANDfirst_name IN (-> SELECTfirst_name FROM employees WHERE dept_id = 20-> );
+Empty set (0.00 sec
